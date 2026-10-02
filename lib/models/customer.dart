@@ -36,6 +36,26 @@ class Customer {
     );
   }
 
+  // ---------- JSON Persistence ----------
+
+  /// Serialize this customer to a JSON-compatible map.
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'phone': phone,
+        'email': email,
+      };
+
+  /// Deserialize a customer from a JSON map.
+  factory Customer.fromJson(Map<String, dynamic> json) {
+    return Customer.registered(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      phone: json['phone'] as String,
+      email: json['email'] as String,
+    );
+  }
+
   void displayInfo() {
     print('Customer ID: $id | Name: $name | Phone: $phone | Email: $email');
   }

@@ -1,3 +1,6 @@
 # https://dart.dev/tools/private-files
 # Created by `dart pub`
 .dart_tool/
+
+# Application JSON database (auto-generated on first run if missing)
+data/

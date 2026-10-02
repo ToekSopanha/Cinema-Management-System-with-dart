@@ -34,6 +34,28 @@ class Seat {
     );
   }
 
+  // ---------- JSON Persistence ----------
+
+  /// Serialize this seat to a JSON-compatible map.
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'seatRow': seatRow,
+        'seatNumber': seatNumber,
+        'isBooked': isBooked,
+        'priceMultiplier': priceMultiplier,
+      };
+
+  /// Deserialize a seat from a JSON map.
+  factory Seat.fromJson(Map<String, dynamic> json) {
+    return Seat(
+      id: json['id'] as String,
+      seatRow: json['seatRow'] as String,
+      seatNumber: (json['seatNumber'] as num).toInt(),
+      isBooked: json['isBooked'] as bool,
+      priceMultiplier: (json['priceMultiplier'] as num).toDouble(),
+    );
+  }
+
   void reserve() {
     isBooked = true;
   }

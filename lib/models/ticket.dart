@@ -52,6 +52,38 @@ class Ticket {
     );
   }
 
+  // ---------- JSON Persistence ----------
+
+  /// Serialize to JSON. Stores entity IDs as foreign keys
+  /// rather than embedding full objects.
+  Map<String, dynamic> toJson() => {
+        'ticketId': ticketId,
+        'customerId': customer.id,
+        'movieId': movie.id,
+        'seatId': seat.id,
+        'finalPrice': finalPrice,
+        'bookingTime': bookingTime.toIso8601String(),
+      };
+
+  /// Deserialize from JSON with pre-resolved object references.
+  /// The caller (typically [BookingRepository]) is responsible for
+  /// looking up the Customer, Movie, and Seat from their repositories.
+  factory Ticket.fromJson(
+    Map<String, dynamic> json, {
+    required Customer customer,
+    required Movie movie,
+    required Seat seat,
+  }) {
+    return Ticket(
+      ticketId: json['ticketId'] as String,
+      customer: customer,
+      movie: movie,
+      seat: seat,
+      finalPrice: (json['finalPrice'] as num).toDouble(),
+      bookingTime: DateTime.parse(json['bookingTime'] as String),
+    );
+  }
+
   void printReceipt() {
     print('\n================ TICKET RECEIPT ================');
     print('Ticket ID: $ticketId');
